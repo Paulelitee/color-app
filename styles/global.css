@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body    {
+    background-color: blue;
+}
+
+
+
+
+.box   {
+    background-color: red;
+    padding: 200px;
+}
+
+.hexcode    {
+    font-size: 48px;
+}
+
+#button {
+    font-size: 36px;
+    padding: 20px;
+}
+
+.color-Box {
+    padding: 10px;
+    background-color: red;
+
+}
+
+.main-panel {
+    height: 100vh;
+}
+
+.color-box {
+    height: 200px;
+}
