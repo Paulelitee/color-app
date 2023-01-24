@@ -1,54 +1,45 @@
 import styles from './styles.css'
 import React, { useState } from 'react'
 import ColourBox from '../components/ColourBox'
+import { HydrationProvider, Server, Client } from "react-hydration-provider";
+
 
 const IndexPage = () => {
 
-    let tray = {}
+let hexcode = '#6af127'
+const letters = '0123456789abcdef'
+const generateCode = () => {
+    let code = ''
 
-    for ( let i = 0; i < 6; i++ )    {
-
-        let color = ''
-        for(let i = 0; i < 6; i++)  {
-            let state = namespace[Math.floor(Math.random() * 16)]
-            color = color + state
-            }
-
-         tray[color] = 'true'
+    for ( let count = 0; count < 6; count++ )
+    {
+        code = code + letters[Math.floor(Math.random() * 16)]
     }
 
-    console.log(tray)
+    return code;
+}
 
-    const [ hexcode, setHex ] = useState(['hey', 'you', 'people', '', ''])
-    const namespace = '0123456789abcdef'
+let firstCode = generateCode()
+let newCode = '#' + firstCode
 
-    const handleGenerate = () => {
-
-        const colorIndex = Math.round(Math.random() * 16)
-
-        function getColor() {
-
-            let color = ''
-                for(let i = 0; i < 6; i++)  {
-                    let state = namespace[Math.floor(Math.random() * 16)]
-                    color = color + state
-                }
-
-                return '#' + color ;
-        }
-
-
-        const newArray = hexcode.map(x => getColor())
-        setHex(newArray)
-    }
 
   return(
-      <main className = { 'hexcode main-panel' }>
-        {hexcode.map(x => <ColourBox />)}
-        <button
-            className = { 'hexcode' }
-            onClick = {handleGenerate}> Generate </button>
-      </main>
+      <HydrationProvider>
+        <main className = { 'hexcode main-panel' }>
+            <Client>
+                <div style = {{
+                    backgroundColor: `${newCode}`,
+                    padding: '200px'
+                    }}>
+                    {newCode}
+                </div>
+            </Client>
+            <button
+                className = { 'hexcode' }
+                > Generate
+            </button>
+        </main>
+      </HydrationProvider>
     )
 }
 
